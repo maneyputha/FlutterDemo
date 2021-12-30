@@ -86,6 +86,9 @@ class _bodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    ///Setup the loading widget context
+    BuildContext dialogContext = context;
+
     return Scaffold(
       // resizeToAvoidBottomPadding: false, // this avoids the overflow error
       appBar: AppBar(elevation: 0),
@@ -117,8 +120,6 @@ class _bodyState extends State<Body> with SingleTickerProviderStateMixin {
                         Expanded(
                             child: BlocListener<RegisterBloc, RegisterState>(
                                 listener: (context, state) {
-                                  ///Setup the loading widget context
-                                  BuildContext dialogContext = context;
                                   final formState = state.formState;
                                   if (formState is FormSubmitting) {
                                     ///Setup a loading widget on form submit

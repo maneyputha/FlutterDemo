@@ -14,12 +14,8 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///BlocProvider will provide the relevant bloc to the widget context
-    return BlocProvider<LoginBloc>(
-        create: (context) => LoginBloc(),
-        child: WillPopScope(
-            onWillPop: () async => false,
-            child:
-                const Scaffold(resizeToAvoidBottomInset: false, body: Body())));
+    return WillPopScope(
+        onWillPop: () async => false,
+        child: const Scaffold(resizeToAvoidBottomInset: false, body: Body()));
   }
 }

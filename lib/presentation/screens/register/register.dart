@@ -13,13 +13,9 @@ class Register extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ///BlocProvider will provide the relevant bloc to the widget context
-    return BlocProvider<RegisterBloc>(
-      create: (context) => RegisterBloc(),
-      child: const Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Body(),
-      ),
+    return const Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Body(),
     );
   }
 }
