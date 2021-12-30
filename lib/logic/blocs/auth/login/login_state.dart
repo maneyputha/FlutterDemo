@@ -6,7 +6,7 @@ import 'package:flutter_demo/logic/blocs/Forms/form_submission_state.dart';
 ///Created By - Manendra Ranathunga
 ///Created Date - 26.12.2021
 ///Updated By - Manendra Ranathunga
-///Updated Date - 28.12.2021
+///Updated Date - 30.12.2021
 class LoginState {
   final String name;
   final String email;
@@ -20,6 +20,8 @@ class LoginState {
 
   final FormSubmissionState formState;
 
+  final bool signedIn;
+
   ///Login State default constructor
   ///Params :
   ///email - email address of the user
@@ -30,11 +32,12 @@ class LoginState {
   ///Created By - Manendra Ranathunga
   ///Created Date - 26.12.2021
   ///Updated By - Manendra Ranathunga
-  ///Updated Date - 28.12.2021
+  ///Updated Date - 30.12.2021
   LoginState(
       {this.name = '',
       this.email = '',
       this.password = '',
+      this.signedIn = false,
       this.formState = const InitialFormState()});
 
   ///Login State constructor that accepts nullable parameter and use the default
@@ -48,16 +51,18 @@ class LoginState {
   ///Created By - Manendra Ranathunga
   ///Created Date - 26.12.2021
   ///Updated By - Manendra Ranathunga
-  ///Updated Date - 28.12.2021
+  ///Updated Date - 30.12.2021
   LoginState copyWith(
       {String? name,
       String? email,
       String? password,
+      bool? signedIn,
       FormSubmissionState? newFomState}) {
     return LoginState(
         name: name ?? this.name,
         email: email ?? this.email,
         password: password ?? this.password,
+        signedIn: signedIn ?? this.signedIn,
         formState: newFomState ?? formState);
   }
 }

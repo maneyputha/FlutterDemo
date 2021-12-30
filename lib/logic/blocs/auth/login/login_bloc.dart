@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_demo/data/models/app_user.dart';
 import 'package:flutter_demo/data/repositories/auth_repository.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_demo/logic/blocs/auth/login/login_state.dart';
 ///Created By - Manendra Ranathunga
 ///Created Date - 26.12.2021
 ///Updated By - Manendra Ranathunga
-///Updated Date - 27.12.2021
+///Updated Date - 30.12.2021
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginState()) {
     ///Maps the given login related events to it's respective states
@@ -23,11 +24,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     ///login form submitted
     on<LoginSubmitted>(_onLoginSubmit);
+
+    ///signout clickec
+    on<SignoutClick>(_onSignoutClick);
   }
 
   ///Handles the login form submitted events
   ///Created By - Manendra Ranathunga
   ///Created Date - 27.12.2021
+  ///Updated By - Manendra Ranathunga
+  ///Updated Date - 30.12.2021
   Future<void> _onLoginSubmit(
       LoginSubmitted event, Emitter<LoginState> emit) async {
     emit(state.copyWith(newFomState: FormSubmitting()));
@@ -42,6 +48,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(
             name: user.name,
             email: user.email,
+            signedIn: true,
             newFomState: SubmissionSucces()));
       } else {
         emit(state.copyWith(
@@ -52,5 +59,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } on Exception catch (e) {
       emit(state.copyWith(newFomState: SubmissionFailed(error: e.toString())));
     }
+  }
+
+  ///Handles the signout button click events
+  ///Created By - Manendra Ranathunga
+  ///Created Date - 30.12.2021
+  Future<void> _onSignoutClick(
+      SignoutClick event, Emitter<LoginState> emit) async {
+    emit(state.copyWith(
+        name: "",
+        email: "",
+        password: "",
+        signedIn: false,
+        newFomState: const InitialFormState()));
+
+    ///Signout from the firebase auth
+    FirebaseAuth.instance.signOut();
   }
 }

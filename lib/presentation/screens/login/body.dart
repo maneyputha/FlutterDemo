@@ -13,6 +13,8 @@ import 'package:flutter_demo/commons/logic/common.dart';
 ///Login Body Widget
 ///Created By - Manendra Ranathunga
 ///Created Date - 05.12.2021
+///Updated By - Manendra Ranathunga
+///Updated Date - 30.12.2021
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
@@ -83,6 +85,10 @@ class _bodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    ///Setup the loading widget context
+    ///Set it up here since it has to be declared outside the listner.
+    BuildContext dialogContext = context;
+
     return Scaffold(
       resizeToAvoidBottomInset: false, // this avoids the overflow error
       body: InkWell(
@@ -115,8 +121,6 @@ class _bodyState extends State<Body> with SingleTickerProviderStateMixin {
                             ///The key purpose of a form is that it will help running the form validations.
                             child: BlocListener<LoginBloc, LoginState>(
                                 listener: (context, state) {
-                                  ///Setup the loading widget context
-                                  BuildContext dialogContext = context;
                                   final formState = state.formState;
                                   if (formState is FormSubmitting) {
                                     ///Setup a loading widget on form submit
@@ -128,12 +132,14 @@ class _bodyState extends State<Body> with SingleTickerProviderStateMixin {
                                           return const LoadingPopUp();
                                         });
                                   } else if (formState is SubmissionFailed) {
-                                    ///Removes the loading widget from current context
-                                    Navigator.pop(dialogContext);
-
                                     ///Show error snack bar.
                                     CustomSnackBarWidgets.showErrorSnackBar(
                                         context, formState.error);
+
+                                    ///Removes the loading widget from current context
+                                    Navigator.of(dialogContext,
+                                            rootNavigator: true)
+                                        .pop();
                                   }
 
                                   ///Navigates to home page if login success

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/screens/home/profile_page/profile_page.dart';
-import 'package:flutter_demo/presentation/screens/home/settings_page/settings_page.dart';
 
 import 'home_page/home_page.dart';
 
@@ -31,16 +30,14 @@ class _bodyState extends State<Body> {
   static const List<Widget> _pages = <Widget>[
     HomePage(),
     ProfilePage(),
-    SettingsPage()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // this avoids the overflow error
-      body: Center(
-        child: _pages.elementAt(_selectedIndex), //New
-      ),
+      ///sets the selected widget to the page body
+      body: _pages.elementAt(_selectedIndex),
 
       ///Bottom navigation will handles the bottom navigation bar.
       bottomNavigationBar: BottomNavigationBar(
@@ -54,11 +51,7 @@ class _bodyState extends State<Body> {
             BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined),
               label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
+            )
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped),
